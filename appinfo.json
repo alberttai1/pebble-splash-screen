@@ -7,7 +7,13 @@
     "longName": "splash-screen",
     "projectType": "native",
     "resources": {
-        "media": []
+        "media": [
+            {
+                "file": "images/tf1_v2_bw.png",
+                "name": "IMAGE_SPLASH",
+                "type": "png"
+            }
+        ]
     },
     "sdkVersion": "2",
     "shortName": "splash-screen",
