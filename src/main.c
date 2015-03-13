@@ -1,4 +1,6 @@
 #include <pebble.h>
+#include <time.h>
+  
 
 Window *my_window;
 Window *splash_window; 
@@ -9,8 +11,20 @@ TextLayer *text_layer;
 static GBitmap *s_splash_bitmap;
 static BitmapLayer *s_splash_bitmap_layer;
 
+// This is the timer 
+/**
+ * This is the function the timer call after the time is up. It will
+ * pop the window it is currently on. This is used for the splash screen. 
+ * @param data
+ */
+void timer_callback(void *data) {
+  window_stack_pop(true);
+}
+
 static void splash_window_load(Window *window)
 {
+  // Set a 1000 millisecond to load the splash screen
+  app_timer_register(1000, (AppTimerCallback) timer_callback, NULL);
   Layer *window_layer = window_get_root_layer(window); 
   s_splash_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_SPLASH);
   s_splash_bitmap_layer = bitmap_layer_create(GRect(5, 5, 130, 130));
