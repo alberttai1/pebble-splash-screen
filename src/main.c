@@ -14,6 +14,8 @@ Window *event_description_window;
 
 TextLayer *text_layer;
 TextLayer *event_description;
+TextLayer *event_success;  
+TextLayer *event_address; 
 
 // bitmap 
 static GBitmap *s_splash_bitmap;
@@ -21,6 +23,7 @@ static BitmapLayer *s_splash_bitmap_layer;
 
 // This is just for the main menu selector 
 static SimpleMenuLayer *simple_menu_layer;
+static ScrollLayer *description_scroll_layer;
 
 // Separate the menu into different sections
 static SimpleMenuSection menu_sections[NUM_MENU_SECTIONS];
@@ -42,14 +45,50 @@ static GBitmap *menu_icon_vietnam;
 // default index 
 int currentIndex = 0; 
 
+// array of information about culture
+char *country_information[] = {
+  "Facts: Korean cuisine is largely based on rice, vegetables, and meats. Traditional Korean meals are noted for the number of side dishes (banchan)!",
+  "What is your favorite place in the entire world?",
+  "What is your favorite movie of all time? Why so?",
+  "What do you like to do for fun?", 
+  "Whats your biggest goal in life right now?",
+  "What’s on your bucket list?",
+  "What is your favorite way to spend a Saturday?",
+  "How many siblings do you have?",
+  "Do you have any pet peeves?",
+  "What was your family like growing up?",
+  "What were you like as a kid?",
+  "What’s your favorite thing about your hometown?",
+  "What should I know about you that I would never think to ask about?",
+  "Did you—or do you—have a nickname? What is the story behind it?",
+  "Who was your favorite schoolteacher or college professor? Why?",
+  "Have you figured out your calling in life? What is it?",
+  "What do you hate most about the dating process?",
+  "What do your parents do for a living?",
+  "What is one job you could never do?", 
+  "What’s the most spontaneous thing you’ve ever done?",
+  "What was your favorite subject in school?",
+  "Who was your favorite teacher or professor?",
+NULL,
+  };
+  
 static void event_description_window_load(Window *window)
 {
   Layer *window_layer = window_get_root_layer(window); 
   GRect window_bounds = layer_get_bounds(window_layer);
   // Load the splash screen picture a bit smaller though.
-  event_description = text_layer_create(GRect(5, 5, window_bounds.size.w - 5, window_bounds.size.h - 10));
-  text_layer_set_font(event_description, fonts_get_system_font(FONT_KEY_GOTHIC_14));
-  text_layer_set_text(event_description, "Korean cuisine is largely based on rice, vegetables, and meats. Traditional Korean meals are noted for the number of side dishes (banchan) that accompany steam-cooked short-grain rice.");
+  event_success = text_layer_create(GRect(5, 0, window_bounds.size.w, 24));
+  text_layer_set_font(event_success, fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD));
+  text_layer_set_text(event_success, "Get Excited!! :)");
+  layer_add_child(window_get_root_layer(window), text_layer_get_layer(event_success));  
+  event_address = text_layer_create(GRect(5,26, 144, 65));
+  text_layer_set_font(event_address, fonts_get_system_font(FONT_KEY_GOTHIC_18_BOLD)); 
+  text_layer_set_text(event_address, "1695 Culture Ave, Toronto, ON");
+  layer_add_child(window_get_root_layer(window), text_layer_get_layer(event_address));
+  layer_add_child(window_get_root_layer(window), text_layer_get_layer(event_address));
+  event_description = text_layer_create(GRect(5, 65, window_bounds.size.w, window_bounds.size.h - 65));
+  text_layer_set_font(event_description, fonts_get_system_font(FONT_KEY_GOTHIC_18));
+  text_layer_set_text(event_description, country_information[currentIndex]);
   text_layer_set_overflow_mode(event_description, GTextOverflowModeWordWrap);
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(event_description));  
 }
