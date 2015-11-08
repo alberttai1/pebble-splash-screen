@@ -94,7 +94,8 @@ static void main_window_load(Window *window)
   menu_icon_germany = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_GERMANY_FLAG);
   menu_icon_greece = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_GREECE_FLAG);
   menu_icon_thailand = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_THAILAND_FLAG); 
-  menu_icon_vietnam = gbitmap_create_with_resource[RESOURCE_ID_IMAGE_VIETNAM_FLAG];
+  menu_icon_vietnam = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_VIETNAM_FLAG);
+  
   // Although we already defined NUM_FIRST_MENU_ITEMS, you can define
   // an int as such to easily change the order of menu items later
   int num_a_items = 0;
@@ -102,7 +103,7 @@ static void main_window_load(Window *window)
   // This is the first section of the menu which is the portion 
   first_menu_items[num_a_items++] = (SimpleMenuItem){
     .title = "Tikka Masala",
-    .subtitle = "0.3 km",
+    .subtitle = "0.3 km\n 5/10",
     .callback = menu_select_callback,
     .icon = menu_icon_india,
   };
