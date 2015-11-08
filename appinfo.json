@@ -4,10 +4,69 @@
         ""
     ],
     "companyName": "Albert Tai ",
-    "longName": "splash-screen",
+    "longName": "Meal Share",
     "projectType": "native",
     "resources": {
         "media": [
+            {
+                "file": "images/South-Korea.png",
+                "name": "IMAGE_SKOREA_FLAG",
+                "type": "png"
+            },
+            {
+                "file": "images/Thailand.png",
+                "name": "IMAGE_THAILAND_FLAG",
+                "type": "png"
+            },
+            {
+                "file": "images/Greece.png",
+                "name": "IMAGE_GREECE_FLAG",
+                "type": "png"
+            },
+            {
+                "file": "images/Germany.png",
+                "name": "IMAGE_GERMANY_FLAG",
+                "type": "png"
+            },
+            {
+                "file": "images/Mexico.png",
+                "name": "IMAGE_MEXICO_FLAG",
+                "type": "png"
+            },
+            {
+                "file": "images/Vietnam.png",
+                "name": "IMAGE_VIETNAM_FLAG",
+                "type": "png"
+            },
+            {
+                "file": "images/China.png",
+                "name": "IMAGE_CHINA_FLAG",
+                "type": "png"
+            },
+            {
+                "file": "images/India.png",
+                "name": "IMAGE_INDIA_FLAG",
+                "type": "png"
+            },
+            {
+                "file": "images/Canada.png",
+                "name": "IMAGE_CANADA_FLAG",
+                "type": "png"
+            },
+            {
+                "file": "images/icon-28.png",
+                "menuIcon": true,
+                "name": "IMAGE_28",
+                "type": "png"
+            },
+            {
+                "file": "images/mealsharepebble.png",
+                "name": "IMAGE_SPLASH_COLOR",
+                "targetPlatforms": [
+                    "basalt"
+                ],
+                "type": "png"
+            },
             {
                 "file": "images/tf1_v2_bw.png",
                 "name": "IMAGE_SPLASH",
@@ -15,10 +74,12 @@
             }
         ]
     },
-    "sdkVersion": "2",
-    "shortName": "splash-screen",
+    "sdkVersion": "3",
+    "shortName": "Meal Share",
+    "targetPlatforms": [
+        "basalt"
+    ],
     "uuid": "02120ac0-fa53-4f96-80f9-8edf93ca82e3",
-    "versionCode": 1,
     "versionLabel": "1.0",
     "watchapp": {
         "watchface": false
