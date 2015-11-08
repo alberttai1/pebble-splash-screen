@@ -10,8 +10,10 @@
 
 Window *my_window;
 Window *splash_window; 
+Window *event_description_window; 
 
 TextLayer *text_layer;
+TextLayer *event_description;
 
 // bitmap 
 static GBitmap *s_splash_bitmap;
@@ -37,6 +39,24 @@ static GBitmap *menu_icon_greece;
 static GBitmap *menu_icon_thailand;
 static GBitmap *menu_icon_vietnam;
 
+// default index 
+int currentIndex = 0; 
+
+static void event_description_window_load(Window *window)
+{
+  Layer *window_layer = window_get_root_layer(window); 
+  GRect window_bounds = layer_get_bounds(window_layer);
+  // Load the splash screen picture a bit smaller though.
+  event_description = text_layer_create(GRect(5, 5, window_bounds.size.w - 5, window_bounds.size.h - 10));
+  text_layer_set_font(event_description, fonts_get_system_font(FONT_KEY_GOTHIC_14));
+  text_layer_set_text(event_description, "Korean cuisine is largely based on rice, vegetables, and meats. Traditional Korean meals are noted for the number of side dishes (banchan) that accompany steam-cooked short-grain rice.");
+  text_layer_set_overflow_mode(event_description, GTextOverflowModeWordWrap);
+  layer_add_child(window_get_root_layer(window), text_layer_get_layer(event_description));  
+}
+static void event_description_window_unload(Window *window)
+{
+  
+}
 /**
  * This takes care when the user select a menu item on the main menu. It sends it 
  * to the correct spot. 
@@ -45,11 +65,9 @@ static GBitmap *menu_icon_vietnam;
  */
 static void menu_select_callback(int index, void *ctx) {
   // Set the current index to the menu we just pressed
-//   currentIndex = index; 
-  // Reset the question counter to zero 
-//   currentQuestion = 0; 
+  currentIndex = index; 
   // Show the question window 
-//   window_stack_push(s_question_window, true);
+  window_stack_push(event_description_window, true);
   
 }
 
@@ -85,6 +103,7 @@ static void splash_window_unload(Window *window)
 }
 static void main_window_load(Window *window)
 {
+//   void window_set_background_color(window, GColor background_color)
   
   // We'll have to load the icon before we can use it
   menu_icon_skorea = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_SKOREA_FLAG);
@@ -103,49 +122,49 @@ static void main_window_load(Window *window)
   // This is the first section of the menu which is the portion 
   first_menu_items[num_a_items++] = (SimpleMenuItem){
     .title = "Tikka Masala",
-    .subtitle = "0.3 km\n 5/10",
+    .subtitle = "0.3 km [in 3 hrs]",
     .callback = menu_select_callback,
     .icon = menu_icon_india,
   };
   first_menu_items[num_a_items++] = (SimpleMenuItem){
     .title = "Bibimbap",
-    .subtitle = "0.4 km",
+    .subtitle = "0.4 km [in 1 hr]",
     .callback = menu_select_callback,
     .icon = menu_icon_skorea, 
   };
   first_menu_items[num_a_items++] = (SimpleMenuItem){
     .title = "Enchiladas",
-    .subtitle = "0.7 km",
+    .subtitle = "0.7 km [in 2.5 hrs]",
     .callback = menu_select_callback,
     .icon = menu_icon_mexico, 
   };
   first_menu_items[num_a_items++] = (SimpleMenuItem){
     .title = "Chicken Pad Thai",
-    .subtitle = "1.1 km",
+    .subtitle = "1.1 km [in 2 hrs]",
     .callback = menu_select_callback,
     .icon = menu_icon_thailand, 
   };
   first_menu_items[num_a_items++] = (SimpleMenuItem){
     .title = "Pho (Beef Noodle Soup)",
-    .subtitle = "1.5 km",
+    .subtitle = "1.5 km [in 1 hr]",
     .callback = menu_select_callback,
     .icon = menu_icon_vietnam,
   };
   first_menu_items[num_a_items++] = (SimpleMenuItem){
     .title = "Hot Pot",
-    .subtitle = "2.9 km",
+    .subtitle = "2.9 km [in 2 hrs]",
     .callback = menu_select_callback,
     .icon = menu_icon_china,
   };
   first_menu_items[num_a_items++] = (SimpleMenuItem){
     .title = "Bratwurst Hot Dogs",
-    .subtitle = "3.0 km",
+    .subtitle = "3.0 km [in 4 hrs]",
     .callback = menu_select_callback,
     .icon = menu_icon_germany,
   };
   first_menu_items[num_a_items++] = (SimpleMenuItem){
     .title = "Grilled Lamb",
-    .subtitle = "4.0 km",
+    .subtitle = "4.0 km [in 2.5 hrs]",
     .callback = menu_select_callback,
     .icon = menu_icon_greece, 
   };
@@ -193,6 +212,7 @@ static void main_window_unload(Window *window)
 void handle_init(void) {
   my_window = window_create();
   splash_window = window_create(); 
+  event_description_window = window_create(); 
   window_set_window_handlers(my_window, (WindowHandlers) {
     .load = main_window_load,
     .unload = main_window_unload,
@@ -201,6 +221,10 @@ void handle_init(void) {
     .load = splash_window_load,
     .unload = splash_window_unload,
   });
+  window_set_window_handlers(event_description_window, (WindowHandlers) {
+    .load = event_description_window_load,
+    .unload = event_description_window_unload, 
+  }); 
   window_stack_push(my_window, true);
   window_stack_push(splash_window, true);
 }
